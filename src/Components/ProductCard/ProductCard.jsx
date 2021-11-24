@@ -4,11 +4,11 @@ const ProductCard = (props) => {
         <ReactFragment>
             {props.products.map((product) => {
                 <div style={{ maxWidth: "15rem" }}>
-                    <div className="card-header">
+                    <div className="card-header">{product.Name}</div>
+                    <div className="card-body">
                         <img src="#" alt="#" />
-                        <h3>{product.Name}</h3>
                         <p>{product.Description}</p>
-                        <h4>{product.Price}</h4>
+                        <p>${product.Price}</p>
                     </div>
                     <button className="btn btn-primary" onClick={() => addItemToCart()}>Add to Cart</button>
                 </div>      
