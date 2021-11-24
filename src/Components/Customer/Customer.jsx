@@ -3,7 +3,7 @@ import ProductCard from "../ProductCard/ProductCard";
 
 const Customer = (props) => {
     return (
-        <ReactFragment>
+        <React.Fragment>
             <div className="navbarContainer">
                 <ul>
                     <li>Account</li>
@@ -24,7 +24,7 @@ const Customer = (props) => {
             <div className="productContainer">
                 <ProductCard />
             </div>
-        </ReactFragment>
+        </React.Fragment>
     );
 };
 

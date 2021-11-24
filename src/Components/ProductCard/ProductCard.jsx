@@ -1,7 +1,7 @@
 const ProductCard = (props) => {
     
     return (
-        <ReactFragment>
+        <React.Fragment>
             {props.products.map((product) => {
                 <div style={{ maxWidth: "15rem" }}>
                     <div className="card-header">{product.Name}</div>
@@ -13,7 +13,7 @@ const ProductCard = (props) => {
                     <button className="btn btn-primary" onClick={() => addItemToCart()}>Add to Cart</button>
                 </div>      
             })}
-        </ReactFragment>
+        </React.Fragment>
     )
 }
 

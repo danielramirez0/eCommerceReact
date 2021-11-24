@@ -46,3 +46,4 @@ const ShoppingCart = props => {
     </React.Fragment>
   );
 };
+export default ShoppingCart;
