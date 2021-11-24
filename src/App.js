@@ -1,6 +1,6 @@
 import React, {useEffect, useState } from "react";
 import {Routes, Route} from "react-router-dom";
-// import "bootswatch/dist/SELECT STYLE HERE"
+import "bootswatch/dist/morph/bootstrap.min.css"
 import './App.css';
 import Login from "./Components/Login/Login"
 import Register from "./Components/Register/Register"
@@ -20,10 +20,10 @@ function App() {
       <header className="App-header">
           <div className="container">
               <Routes>
-                  <Route path="/" exact element={<Login />}/>
-                  <Route path="/register" exact element={<Register />}/>
-                  <Route path="/seller" exact element={<Seller />}/>
-                  <Route path="/customer" exact element={<Customer />}/>
+                  <Route path="/" exact element={<Login backendURL={backendURL} authenticated={authenticated} />}/>
+                  <Route path="/register" exact element={<Register backendURL={backendURL} authenticated={authenticated} />}/>
+                  <Route path="/seller" exact element={<Seller backendURL={backendURL}  authenticated={authenticated}/>}/>
+                  <Route path="/customer" exact element={<Customer backendURL={backendURL} authenticated={authenticated} />}/>
               </Routes>
           </div>
       </header>
