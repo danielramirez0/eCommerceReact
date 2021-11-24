@@ -7,7 +7,7 @@ const CustomerSplash = (props) => {
             <div className="navbarContainer">
                 <ul>
                     <li>Account</li>
-                    <li>My Cart -- Items: {shoppingcart.count()} Total: ${shoppingcart.price.sum()}</li>
+                    <li>My Cart -- Items: {props.count()} Total: ${props.price.sum()}</li>
                 </ul>
             </div>
             <div className="headerContainer">
