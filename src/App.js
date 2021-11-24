@@ -2,10 +2,10 @@ import React, {useEffect, useState } from "react";
 import {Routes, Route} from "react-router-dom";
 // import "bootswatch/dist/SELECT STYLE HERE"
 import './App.css';
-import Login from "./Components/Login"
-import Register from "./Components/Register"
-import Seller from "./Components/Seller"
-import Customer from "./Components/Customer"
+import Login from "./Components/Login/Login"
+import Register from "./Components/Register/Register"
+import Seller from "./Components/Seller/Seller"
+import Customer from "./Components/Customer/Customer"
 
 function App() {
     const [backendURL] = useState("https://localhost:44394/api/");
