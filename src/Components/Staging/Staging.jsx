@@ -24,8 +24,8 @@ const Staging = () => {
             } else if (role.data === "Seller") {
                 navigate("/seller");
             }
-        }else{
-            navigate("/")
+        } else {
+            navigate("/");
         }
     };
 
