@@ -38,3 +38,16 @@ export async function protectedEnpointGetRequest(endpoint, token) {
         });
     return result;
 }
+
+export async function defaultPostRequest(endpoint,body) {
+    const result = await axios
+        .post(endpoint,body)
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            errorHandler(error);
+            return false;
+        });
+    return result;
+}

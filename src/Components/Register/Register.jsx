@@ -3,36 +3,78 @@ import React, { useContext, useEffect, useState } from "react";
 import { BaseURLContext } from "../../baseURL-context";
 import useForm from "../useForm/useForm";
 import { useNavigate } from "react-router";
+import { defaultPostRequest } from "../../static/functions";
 
 const Register = () => {
-    const [isRegistered, setIsRegistered] = useState(false);
     const { values, errors, handleChange, handleSubmit } = useForm(registerUser);
     const { baseURL } = useContext(BaseURLContext);
     const [formPage, setFormPage] = useState(1);
     const [configureBilling, setConfigureBilling] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const[loading, setLoading] = useState(false);
     const navigate = useNavigate;
 
-    useEffect(() => {
-        if (isRegistered) {
-            navigate("/Login");
-        }
-    }, [isRegistered]);
 
     async function registerUser() {
-        if (values.password) {
-            if (isOkPass(values.password)) {
-                // Formats the object with structure needed for backend
-                const { verifyPassword, password, ...newUser } = {
-                    password: values.password,
-                    ...values,
-                };
+        const addresses = await addressBuilder();
+
+        const shippingAddressId = await postAddress(addresses[0]);
+        const billingAddressId = await postAddress(addresses[1]);
+
+        const registrationData ={
+            firstName:values.firstName,
+            lastName: values.lastName,
+            userName: values.userName,
+            password: values.password,
+            email: values.email,
+            phoneNumber: values.phoneNumber,
+            shippingAddressId: shippingAddressId,
+            billingAddressId: billingAddressId,
+            roleType: values.accountType
+        }
 
                 setLoading(true);
-                const response = await registerNewUser(newUser, `${baseURL}authentication/`);
-                setIsRegistered(true);
+                const response = await defaultPostRequest(`${baseURL}authentication/`, registrationData);
+                if (response){
+                    navigate("/")
+                }
             }
+
+    async function postAddress(address){
+        setLoading(true);
+        const response = await defaultPostRequest(`${baseURL}addresses/`, address);
+        if(response){
+            return (
+                response.data.id
+            );
         }
+    }
+
+    async function addressBuilder(){
+        const billingAddress={};
+        const shippingAddress = {
+            name: values.shippingName,
+            street: values.shippingStreet,
+            city: values.shippingCity,
+            zip: values.shippingZip,
+            type: "shipping"
+        }
+        if(configureBilling)
+        {
+                billingAddress.name = values.billingName
+                billingAddress.street = values.billingStreet
+                billingAddress.city = values.billingCity
+                billingAddress.zip = values.billingZip
+                billingAddress.type = "billing"
+        }
+        else
+        {
+            billingAddress.name = values.shippingName
+            billingAddress.street = values.shippingStreet
+            billingAddress.city = values.shippingCity
+            billingAddress.zip = values.shippingZip
+            billingAddress.type = "billing"
+        }
+        return [shippingAddress, billingAddress]
     }
 
     function renderUserForm() {
@@ -50,7 +92,7 @@ const Register = () => {
                                 value={values.username || ""}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="floatingUsername">Username</label>
+                            <label htmlFor="username">Username</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input
@@ -62,7 +104,7 @@ const Register = () => {
                                 value={values.email || ""}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="username">Email Address</label>
+                            <label htmlFor="email">Email Address</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input
@@ -74,7 +116,7 @@ const Register = () => {
                                 value={values.firstName || ""}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="username">First Name</label>
+                            <label htmlFor="firstName">First Name</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input
@@ -86,7 +128,19 @@ const Register = () => {
                                 value={values.lastName || ""}
                                 onChange={handleChange}
                             />
-                            <label htmlFor="username">Last Name</label>
+                            <label htmlFor="lastName">Last Name</label>
+                        </div>
+                        <div className="form-floating mb-3">
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                className="form-control"
+                                id="phoneNumber"
+                                placeholder="Phone Number"
+                                value={values.phoneNumber || ""}
+                                onChange={handleChange}
+                            />
+                            <label htmlFor="phoneNumber">Phone Number</label>
                         </div>
                         <div className="form-floating mb-3">
                             <input
