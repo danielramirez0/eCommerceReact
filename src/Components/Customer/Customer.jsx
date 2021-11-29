@@ -1,7 +1,17 @@
-import React from "react"
-import ProductCard from "../ProductCard/ProductCard";
+import React, { useContext } from "react"
+import ProductDisplay from "../ProductDisplay/ProductDisplay";
+import { BaseURLContext } from "../../baseURL-context";
+import { defaultGetRequest } from "../../static/functions";
 
 const Customer = (props) => {
+    const { baseURL } = useContext(BaseURLContext);
+    let products = [];
+
+    const getAllProducts = async () => {
+        const response = await defaultGetRequest(`${baseURL}porduct/all/`);
+        products = response;
+    }
+
     return (
         <React.Fragment>
             <div className="navbarContainer">
@@ -21,9 +31,7 @@ const Customer = (props) => {
                 <input type="text" defaultValue="SEARCH by keyword or product number" />
                 <button className="btn btn-primary">Search</button>
             </div>
-            <div className="productContainer">
-                <ProductCard />
-            </div>
+            <ProductDisplay products={products}/>
         </React.Fragment>
     );
 };

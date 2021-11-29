@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
     };
 
     let signout = (callback) => {
-        setUser(null);
+        setJWT(null);
         callback();
     };
 
