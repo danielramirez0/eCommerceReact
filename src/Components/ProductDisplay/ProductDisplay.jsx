@@ -4,9 +4,10 @@ import ProductCard from "../ProductCard/ProductCard";
 const ProductDisplay = (props) => {
     return (
         <div>
-            <div className="cardContainer">
+            <div className="row row-cols-5">
             {props.products.map((product) => {
                     return (
+                        
                         <ProductCard product={product}/>
                         
                     );

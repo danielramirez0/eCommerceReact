@@ -32,7 +32,7 @@ const ShoppingCart = (props) => {
                             <td>{product.description}</td>
                             <td>${product.price}</td>
                             <td>{product.quantity}</td>
-                            {/*need increment decrement button with callback to update product quantity*/}
+                            {/*TODO need increment decrement button with callback to update product quantity*/}
                             <td>${product.quantity * product.price}</td>
                             <td>
                                 <button
