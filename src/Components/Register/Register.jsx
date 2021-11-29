@@ -31,7 +31,7 @@ const Register = () => {
             setLoading(true);
             const response = await registerNewUser(
               newUser,
-              `${baseURL}authentication/register/`
+              `${baseURL}authentication/`
             );
           setIsRegistered(true);
         }
