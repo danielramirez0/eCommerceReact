@@ -1,29 +1,36 @@
-import React from "react"
-import ProductCard from "../ProductCard/ProductCard";
+import React from "react";
+import { Link } from "react-router-dom";
+import FlexNav from "../FlexNav/FlexNav";
+import logo from "../../img/Elogo.png"
 
-const Customer = (props) => {
+const Customer = () => {
+    let shoppingCart = [];
+    let sum = 0;
+    let links = [];
+
     return (
         <React.Fragment>
-            <div className="navbarContainer">
-                <ul>
-                    <li>Account</li>
-                    <li>
-                        My Cart -- Items: {props.count()} Total: ${props.price.sum()}
-                    </li>
-                </ul>
+            <div className="row top-nav">
+                <div className="col-8"></div>
+                <div className="col-2">
+                    <Link to="/customer/account">Account</Link>
+                </div>
+                <div className="col-2">
+                    My Cart -- Items: {shoppingCart.length} Total: ${sum}
+                </div>
             </div>
-            <div className="headerContainer">
-                <div className="logo"></div>
-                <div className="slogan"></div>
-                <div className="policy"></div>
+            <div className="row">
+                <div className="col-4 "><img src={logo} alt="Electronify Logo" /></div>
+                <div className="col-4">Slogan</div>
+                <div className="col-4">Return Policy</div>
             </div>
-            <div className="searchBarContainer">
-                <input type="text" defaultValue="SEARCH by keyword or product number" />
-                <button className="btn btn-primary">Search</button>
+
+            <FlexNav data={links}></FlexNav>
+
+            <div className="">
+                Search Bar goes here
             </div>
-            <div className="productContainer">
-                <ProductCard />
-            </div>
+            <div className="">Products Go here</div>
         </React.Fragment>
     );
 };

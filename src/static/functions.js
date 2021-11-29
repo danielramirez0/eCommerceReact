@@ -28,7 +28,20 @@ export async function loginUser(endpoint, credentials) {
 
 export async function protectedEnpointGetRequest(endpoint, token) {
     const result = await axios
-        .get(endpoint, { headers: {"Authorization": `Bearer ${token}` } })
+        .get(endpoint, { headers: { Authorization: `Bearer ${token}` } })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            errorHandler(error);
+            return false;
+        });
+    return result;
+}
+
+export async function defaultGetRequst(endpoint) {
+    const result = await axios
+        .get(endpoint)
         .then((response) => {
             return response;
         })

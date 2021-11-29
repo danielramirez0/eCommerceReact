@@ -1,11 +1,11 @@
 const ProductCard = (props) => {
     return (
         <div style={{ maxWidth: "15rem" }}>
-            <div className="card-header">{product.Name}</div>
+            <div className="card-header">{props.product.Name}</div>
             <div className="card-body">
                 <img src="#" alt="#" />
-                <p>{product.Description}</p>
-                <p>${product.Price}</p>
+                <p>{props.product.Description}</p>
+                <p>${props.product.Price}</p>
             </div>
             <button className="btn btn-primary" onClick={() => props.addItemToCart()}>
                 Add to Cart
