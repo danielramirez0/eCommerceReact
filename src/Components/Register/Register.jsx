@@ -9,6 +9,7 @@ const Register = () => {
     const { values, errors, handleChange, handleSubmit } = useForm(registerUser);
     const { baseURL } = useContext(BaseURLContext);
     const [formPage, setFormPage] = useState(1);
+    const [configureBilling, setConfigureBilling] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate;
 
@@ -151,10 +152,122 @@ const Register = () => {
                                 Seller
                             </label>
                         </div>
-                        <button onClick={() => setFormPage(2)}>Next</button>
                     </div>
+                    <button className="btn btn-primary mb-4" onClick={() => setFormPage(2)}>
+                        Next
+                    </button>
                 </div>
             </fieldset>
+        );
+    }
+
+    function renderShippingAddress() {
+        return (
+            <>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="shippingName"
+                        className="form-control"
+                        id="shippingName"
+                        placeholder="My Name"
+                        value={values.shippingName || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="shippingName">Name</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="shippingStreet"
+                        className="form-control"
+                        id="shippingStreet"
+                        placeholder="1234 Example St."
+                        value={values.shippingStreet || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="shippingStreet">Street</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="shippingCity"
+                        className="form-control"
+                        id="shippingCity"
+                        placeholder="My City Name"
+                        value={values.shippingCity || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="shippingCity">City</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="shippingZip"
+                        className="form-control"
+                        id="shippingZip"
+                        placeholder="12345"
+                        value={values.shippingZip || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="shippingZip">Zip Code</label>
+                </div>
+            </>
+        );
+    }
+
+    function renderBillingAddress() {
+        return (
+            <>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="billingName"
+                        className="form-control"
+                        id="billingName"
+                        placeholder="My Name"
+                        value={values.billingName || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="billingName">Name</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="billingStreet"
+                        className="form-control"
+                        id="billingStreet"
+                        placeholder="1234 Example St."
+                        value={values.billingStreet || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="billingStreet">Street</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="billingCity"
+                        className="form-control"
+                        id="billingCity"
+                        placeholder="My City Name"
+                        value={values.billingCity || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="billingCity">City</label>
+                </div>
+                <div className="form-floating mb-3">
+                    <input
+                        type="text"
+                        name="billingZip"
+                        className="form-control"
+                        id="billingZip"
+                        placeholder="12345"
+                        value={values.billingZip || ""}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="billingZip">Zip Code</label>
+                </div>
+            </>
         );
     }
 
@@ -164,54 +277,7 @@ const Register = () => {
                 <legend>SHIPPING ADDRESS</legend>
                 <div className="ms-4 me-4">
                     <div className="form-group mt-4 mb-4">
-                        <div className="form-floating mb-3">
-                            <input
-                                type="text"
-                                name="shippingName"
-                                className="form-control"
-                                id="shippingName"
-                                placeholder="My Name"
-                                value={values.shippingName || ""}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="shippingName">Name</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input
-                                type="text"
-                                name="shippingStreet"
-                                className="form-control"
-                                id="shippingStreet"
-                                placeholder="1234 Example St."
-                                value={values.shippingStreet || ""}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="shippingStreet">Street</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input
-                                type="text"
-                                name="shippingCity"
-                                className="form-control"
-                                id="shippingCity"
-                                placeholder="My City Name"
-                                value={values.shippingCity || ""}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="shippingCity">City</label>
-                        </div>
-                        <div className="form-floating mb-3">
-                            <input
-                                type="text"
-                                name="shippingZip"
-                                className="form-control"
-                                id="shippingZip"
-                                placeholder="12345"
-                                value={values.shippingZip || ""}
-                                onChange={handleChange}
-                            />
-                            <label htmlFor="shippingZip">Zip Code</label>
-                        </div>
+                        {renderShippingAddress()}
                         <legend className="mt-4">BILLING ADDRESS</legend>
                         <div className="form-check form-switch text-start">
                             <input
@@ -219,13 +285,14 @@ const Register = () => {
                                 type="checkbox"
                                 name="billingSetup"
                                 id="billingSetup"
-                                value={true}
-                                onChange={handleChange}
+                                value={configureBilling}
+                                onChange={() => setConfigureBilling(!configureBilling)}
                             />
                             <label htmlFor="billingSetup" className="form-check-label text-left">
                                 Use Shipping Address
                             </label>
                         </div>
+                        {!configureBilling ? renderBillingAddress() : null}
                         <button className="btn btn-primary" type="submit">
                             Register
                         </button>
