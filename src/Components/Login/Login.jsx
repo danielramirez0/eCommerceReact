@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./login.css";
 import logo from "../../img/Elogo.png";
 import useForm from "../useForm/useForm";
@@ -15,10 +15,22 @@ const Login = () => {
     const [checked, setChecked] = useState(false);
     const [showToast, setShowToast] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const auth = useAuth();
-
     const from = location.state?.from?.pathname || "/staging";
+
+    useEffect(() => {
+        checkCache();
+    }, []);
+
+    function checkCache() {
+        const cache = localStorage.getItem("ecomJWT");
+        if (cache) {
+            auth.signin(cache, () => {
+                navigate("/staging");
+            });
+        }
+    }
 
     function login() {
         setIsLoading(true);
@@ -30,6 +42,9 @@ const Login = () => {
         const response = await loginUser(`${baseURL}authentication/login/`, credentials);
         if (response) {
             const { token } = response.data;
+            if (checked) {
+                localStorage.setItem("ecomJWT", token);
+            }
             auth.signin(token, () => {
                 // Send them back to the page they tried to visit when they were
                 // redirected to the login page. Use { replace: true } so we don't create
@@ -60,9 +75,7 @@ const Login = () => {
                         <strong className="me-auto">Invalid Credentials</strong>
                         <small>Login error</small>
                     </Toast.Header>
-                    <Toast.Body className="toast-body">
-                        Bad username and/or password
-                    </Toast.Body>
+                    <Toast.Body className="toast-body">Bad username and/or password</Toast.Body>
                 </Toast>
             </ToastContainer>
             <div className="account-form m-auto">
