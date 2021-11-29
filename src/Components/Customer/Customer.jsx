@@ -64,7 +64,7 @@ const Customer = () => {
     }
 
     const getCategories = async () => {
-        const response = await defaultGetRequest(`${baseURL}category/all/`)
+        const response = await defaultGetRequest(`${baseURL}categories/all/`)
         if(response) {
             setCategories(response.data);
         }
