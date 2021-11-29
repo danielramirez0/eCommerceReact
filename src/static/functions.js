@@ -39,9 +39,9 @@ export async function protectedEnpointGetRequest(endpoint, token) {
     return result;
 }
 
-export async function defaultGetRequst(endpoint) {
+export async function defaultPostRequest(endpoint, body) {
     const result = await axios
-        .get(endpoint)
+        .post(endpoint, body)
         .then((response) => {
             return response;
         })
@@ -51,7 +51,6 @@ export async function defaultGetRequst(endpoint) {
         });
     return result;
 }
-
 export async function defaultGetRequest(endpoint) {
     const result = await axios
         .get(endpoint)
