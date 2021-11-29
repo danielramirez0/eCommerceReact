@@ -14,7 +14,7 @@ const useForm = (callback) => {
                     ...errors,
                     password:
                         event.target.value.length > 0 && event.target.value.length < 8
-                            ? "Password must be at least 8 characters"
+                            ? "Password must be at least 8 characters, one uppercase, one lowercase, one special character(!@#$%), and one number"
                             : null,
                 }));
                 break;

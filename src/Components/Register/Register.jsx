@@ -9,9 +9,9 @@ const Register = () => {
     const { values, errors, handleChange, handleSubmit } = useForm(registerUser);
     const { baseURL } = useContext(BaseURLContext);
     const [formPage, setFormPage] = useState(1);
-    const [configureBilling, setConfigureBilling] = useState(false);
+    const [applyShipping, setApplyShipping] = useState(true);
     const[loading, setLoading] = useState(false);
-    const navigate = useNavigate;
+    const navigate = useNavigate();
 
 
     async function registerUser() {
@@ -21,15 +21,15 @@ const Register = () => {
         const billingAddressId = await postAddress(addresses[1]);
 
         const registrationData ={
-            firstName:values.firstName,
-            lastName: values.lastName,
-            userName: values.userName,
+            firstname:values.firstName,
+            lastname: values.lastName,
+            username: values.username,
             password: values.password,
             email: values.email,
-            phoneNumber: values.phoneNumber,
-            shippingAddressId: shippingAddressId,
-            billingAddressId: billingAddressId,
-            roleType: values.accountType
+            phonenumber: values.phoneNumber,
+            shippingAddressID: shippingAddressId,
+            billingAddressID: billingAddressId,
+            roletype: values.accountType
         }
 
                 setLoading(true);
@@ -58,20 +58,21 @@ const Register = () => {
             zip: values.shippingZip,
             type: "shipping"
         }
-        if(configureBilling)
-        {
-                billingAddress.name = values.billingName
-                billingAddress.street = values.billingStreet
-                billingAddress.city = values.billingCity
-                billingAddress.zip = values.billingZip
-                billingAddress.type = "billing"
-        }
-        else
+        if(applyShipping)
         {
             billingAddress.name = values.shippingName
             billingAddress.street = values.shippingStreet
             billingAddress.city = values.shippingCity
             billingAddress.zip = values.shippingZip
+            billingAddress.type = "billing"
+               
+        }
+        else
+        {
+            billingAddress.name = values.billingName
+            billingAddress.street = values.billingStreet
+            billingAddress.city = values.billingCity
+            billingAddress.zip = values.billingZip
             billingAddress.type = "billing"
         }
         return [shippingAddress, billingAddress]
@@ -339,14 +340,15 @@ const Register = () => {
                                 type="checkbox"
                                 name="billingSetup"
                                 id="billingSetup"
-                                value={configureBilling}
-                                onChange={() => setConfigureBilling(!configureBilling)}
+                                value={applyShipping}
+                                checked={applyShipping?true:false}
+                                onChange={() => setApplyShipping(!applyShipping)}
                             />
                             <label htmlFor="billingSetup" className="form-check-label text-left">
                                 Use Shipping Address
                             </label>
                         </div>
-                        {!configureBilling ? renderBillingAddress() : null}
+                        {!applyShipping ? renderBillingAddress() : null}
                         <button className="btn btn-primary" type="submit">
                             Register
                         </button>
