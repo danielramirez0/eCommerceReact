@@ -19,34 +19,36 @@ const Customer = () => {
 
     useEffect(() => {
         setDisplayProducts(filter);
+        getCategories();
+        console.log(categories);
     }, [filter]);
 
     function setDisplayProducts(filter) {
-        if (filter == "all") {
+        if (filter === "all") {
             getAllProducts();
         } else if (filter === "name") {
             getProductsByName(values.searchName);
-        } else {
+        }else {
             getProductsByCategory(filter);
         }
     }
 
     const getAllProducts = async () => {
-        const response = await defaultGetRequest(`${baseURL}porduct/all/`);
+        const response = await defaultGetRequest(`${baseURL}product/all/`);
         if (response) {
             setProducts(response.data);
         }
     };
 
     const getProductsByCategory = async () => {
-        const response = await defaultGetRequest(`${baseURL}porduct/category/${filter}`);
+        const response = await defaultGetRequest(`${baseURL}product/category/${filter}`);
         if (response) {
             setProducts(response.data);
         }
     };
 
     const getProductsByName = async () => {
-        const response = await defaultGetRequest(`${baseURL}porduct/name/${values.searchName}`);
+        const response = await defaultGetRequest(`${baseURL}product/name/${values.searchName}`);
         if (response) {
             setProducts(response.data);
         } else {
@@ -59,6 +61,13 @@ const Customer = () => {
     }
     function updateFilter(string) {
         setFilter(string);
+    }
+
+    const getCategories = async () => {
+        const response = await defaultGetRequest(`${baseURL}category/all/`)
+        if(response) {
+            setCategories(response.data);
+        }
     }
 
     return (
@@ -119,8 +128,10 @@ const Customer = () => {
                     </button>
                 </form>
             </div>
-            <div className="">Products Go here</div>
-            <ProductDisplay products={products} />
+            <div className="">
+                <ProductDisplay products={products} />
+            </div>
+            
         </React.Fragment>
     );
 };
