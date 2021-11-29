@@ -28,7 +28,7 @@ export async function loginUser(endpoint, credentials) {
 
 export async function protectedEnpointGetRequest(endpoint, token) {
     const result = await axios
-        .get(endpoint, { headers: {"Authorization": `Bearer ${token}` } })
+        .get(endpoint, { headers: { Authorization: `Bearer ${token}` } })
         .then((response) => {
             return response;
         })
@@ -39,9 +39,21 @@ export async function protectedEnpointGetRequest(endpoint, token) {
     return result;
 }
 
-export async function defaultPostRequest(endpoint,body) {
+export async function defaultPostRequest(endpoint, body) {
     const result = await axios
-        .post(endpoint,body)
+        .post(endpoint, body)
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            errorHandler(error);
+            return false;
+        });
+    return result;
+}
+export async function defaultGetRequest(endpoint) {
+    const result = await axios
+        .get(endpoint)
         .then((response) => {
             return response;
         })

@@ -17,7 +17,7 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const auth = useAuth();
-    const from = location.state?.from?.pathname || "/staging";
+    // const from = location.state?.from?.pathname || "/staging";
 
     useEffect(() => {
         checkCache();
@@ -52,7 +52,8 @@ const Login = () => {
                 // when they get to the protected page and click the back button, they
                 // won't end up back on the login page, which is also really nice for the
                 // user experience.
-                navigate(from, { replace: true });
+                // navigate(from, { replace: true });
+                navigate("/staging");
             });
         } else {
             setShowToast(true);
