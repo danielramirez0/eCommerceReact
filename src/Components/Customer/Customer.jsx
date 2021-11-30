@@ -168,12 +168,12 @@ const Customer = () => {
                 </div>
             </div>
 
-            <FlexNav data={categories} setFilter={(category) => setFilter(category)}></FlexNav>
+            <FlexNav data={categories} callback={(category) => setFilter(category)} callbackParam="all" buttonText="All"></FlexNav>
 
             <div className="">
                 <form onSubmit={handleSubmit} className="d-flex">
                     <input
-                        className="form-control me-sm-2"
+                        className="form-control me-sm-2 w-25"
                         type="text"
                         placeholder="Search by name"
                         name="searchName"

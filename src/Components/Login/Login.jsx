@@ -21,7 +21,8 @@ const Login = () => {
 
     useEffect(() => {
         if (auth.jwt) {
-            navigate("/staging");
+            console.log(auth);
+            // navigate("/staging");
         } else {
             checkCache();
         }
