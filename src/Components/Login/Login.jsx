@@ -20,7 +20,11 @@ const Login = () => {
     // const from = location.state?.from?.pathname || "/staging";
 
     useEffect(() => {
-        checkCache();
+        if (auth.jwt) {
+            navigate("/staging");
+        } else {
+            checkCache();
+        }
     }, []);
 
     function checkCache() {

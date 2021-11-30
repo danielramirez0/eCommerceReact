@@ -52,6 +52,32 @@ export async function protectedEnpointPostRequest(endpoint, body, token) {
     return result;
 }
 
+export async function protectedEnpointDeleteRequest(endpoint, token) {
+    const result = await axios
+        .delete(endpoint, { headers: { Authorization: `Bearer ${token}`} })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            errorHandler(error);
+            return false;
+        });
+    return result;
+}
+
+export async function protectedEnpointPutRequest(endpoint, body, token) {
+    const result = await axios
+        .put(endpoint, body, { headers: { Authorization: `Bearer ${token}`} })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            errorHandler(error);
+            return false;
+        });
+    return result;
+}
+
 export async function defaultGetRequest(endpoint) {
     const result = await axios
         .get(endpoint)

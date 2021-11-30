@@ -4,10 +4,15 @@ import FlexNav from "../FlexNav/FlexNav";
 import logo from "../../img/LogoWithName.svg";
 import ProductDisplay from "../ProductDisplay/ProductDisplay";
 import { BaseURLContext } from "../../baseURL-context";
-import { defaultGetRequest, protectedEnpointGetRequest, protectedEnpointPostRequest } from "../../static/functions";
+import {
+    defaultGetRequest,
+    protectedEnpointGetRequest,
+    protectedEnpointPostRequest,
+} from "../../static/functions";
 import { Card } from "react-bootstrap";
 import useForm from "../useForm/useForm";
 import useAuth from "../useAuth/useAuth";
+import { useNavigate } from "react-router";
 
 const Customer = () => {
     const { values, handleChange, handleSubmit } = useForm(searchByName);
@@ -18,11 +23,16 @@ const Customer = () => {
     const { baseURL } = useContext(BaseURLContext);
     const [filter, setFilter] = useState("all");
     const auth = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getCategories();
-        getShoppingCart();
-        setDisplayProducts(filter);
+        if (!auth.jwt) {
+            navigate("/");
+        } else {
+            getCategories();
+            getShoppingCart();
+            setDisplayProducts(filter);
+        }
     }, []);
 
     useEffect(() => {
@@ -51,10 +61,10 @@ const Customer = () => {
         let sum = 0;
         if (shoppingCart.length > 0) {
             shoppingCart.forEach((item) => {
-                sum += item.price;
+                sum = sum + item.product.price * item.quantity;
             });
         }
-        setTotal(sum);
+        setTotal(Math.round(sum));
     };
 
     const getShoppingCart = async () => {
@@ -65,16 +75,13 @@ const Customer = () => {
     };
 
     const addItemToShoppingCart = async (product) => {
-        let updatedCart = shoppingCart;
         const response = await protectedEnpointPostRequest(
             `${baseURL}shoppingcart?quantity=1`,
             product,
             auth.jwt
         );
-        console.log(response);
         if (response) {
-            updatedCart.push(response.data);
-            setShoppingCart(updatedCart);
+            setShoppingCart(response.data);
         }
     };
 
@@ -124,7 +131,7 @@ const Customer = () => {
                 </div>
                 <div className="col-2">
                     <Link to="/customer/shoppingCart">
-                        My Cart -- Items: {shoppingCart.length} Total: ${total}
+                        Cart({shoppingCart.length}) ${total}
                     </Link>
                 </div>
                 <div className="col-1">
@@ -178,7 +185,10 @@ const Customer = () => {
                     </button>
                 </form>
             </div>
-            <ProductDisplay products={products} addItemToShoppingCart={(product) => addItemToShoppingCart(product)}/>
+            <ProductDisplay
+                products={products}
+                addItemToShoppingCart={(product) => addItemToShoppingCart(product)}
+            />
         </React.Fragment>
     );
 };
