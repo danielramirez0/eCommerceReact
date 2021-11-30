@@ -20,15 +20,15 @@ const FlexNav = (props) => {
                     <div className="navbar-nav me-auto btn-group-horizontal">
                         <button
                             className="btn btn-outline-primary"
-                            onClick={() => props.setFilter("all")}
+                            onClick={() => props.callback(props.callbackParam)}
                         >
-                            All
+                            {props.buttonText}
                         </button>
                         {props.data.map((category) => (
                             <li className="nav-item">
                                 <button
                                     className="btn btn-outline-primary"
-                                    onClick={() => props.setFilter(category.name)}
+                                    onClick={() => props.callback(category.name)}
                                 >
                                     {category.name}
                                     <span className="visually-hidden">(current)</span>
