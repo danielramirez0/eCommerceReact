@@ -13,6 +13,7 @@ import Logoff from "./Components/Logoff/Logoff";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart"
 import Account from "./Components/Account/Account"
 import ProductView from "./Components/ProductView/ProductView";
+import Checkout from "./Components/Checkout/Checkout"
 
 function App() {
     const [baseURL, setBaseURL] = useState("https://localhost:44394/api/");
@@ -31,6 +32,7 @@ function App() {
                                 <Route path="/seller" element={<Seller />} />
                                 <Route path="/customer" element={<Customer />} />
                                 <Route path="/customer/shoppingcart" element={<ShoppingCart />} />
+                                <Route path="/customer/shoppingcart/checkout/:total" element={<Checkout />} />
                                 <Route path="/customer/account" element={<Account />} />
                                 <Route path="/logoff" element={<Logoff />} />
                                 <Route path="/productview/:productId" element={<ProductView />} />

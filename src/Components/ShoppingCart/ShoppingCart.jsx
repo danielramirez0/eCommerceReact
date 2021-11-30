@@ -106,7 +106,7 @@ const ShoppingCart = () => {
                     </Card>
                 </div>
             </div>
-            <FlexNav data={[]} callback={(value) => navigate(value)} callbackParam="/customer" buttonText="Back to Products"></FlexNav>
+            <FlexNav data={[]} callback={(value) => navigate(value)} callbackParam="/customer" buttonText="Return to shopping"></FlexNav>
             <table className="table table-hover" id="shoppingcart">
                 <thead>
                     <tr>
@@ -161,6 +161,7 @@ const ShoppingCart = () => {
                     </tr>
                 </tbody>
             </table>
+            <button className="btn btn-primary" onClick={() => navigate(`/customer/shoppingcart/checkout/${total}`)}>Proceed to checkout</button>
         </React.Fragment>
     );
 };
