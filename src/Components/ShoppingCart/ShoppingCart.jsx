@@ -143,19 +143,19 @@ const ShoppingCart = () => {
                     })}
                     <tr>
                         <th scope="row"></th>
-                        <td colSpan="2" className="table-primary"></td>
+                        <td colSpan="2" className=""></td>
                         <td>Sub-Total</td>
                         <td colSpan="2">${Math.floor(total)}</td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
-                        <td colSpan="2" className="table-primary"></td>
+                        <td colSpan="2" className=""></td>
                         <td>Tax</td>
                         <td colSpan="2">${Math.floor(total * taxRate)}</td>
                     </tr>
                     <tr>
                         <th scope="row"></th>
-                        <td colSpan="2" className="table-primary"></td>
+                        <td colSpan="2" className=""></td>
                         <td>Total</td>
                         <td colSpan="2">${Math.floor(total + total * taxRate)}</td>
                     </tr>

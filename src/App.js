@@ -11,6 +11,7 @@ import AuthProvider from "./Components/AuthProvider/AuthProvider";
 import Staging from "./Components/Staging/Staging";
 import Logoff from "./Components/Logoff/Logoff";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart"
+import Account from "./Components/Account/Account"
 
 function App() {
     const [baseURL, setBaseURL] = useState("https://localhost:44394/api/");
@@ -29,6 +30,7 @@ function App() {
                                 <Route path="/seller" element={<Seller />} />
                                 <Route path="/customer" element={<Customer />} />
                                 <Route path="/customer/shoppingcart" element={<ShoppingCart />} />
+                                <Route path="/customer/Account" element={<Account />} />
                                 <Route path="/logoff" element={<Logoff />} />
                             </Routes>
                         </div>
