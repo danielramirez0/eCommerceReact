@@ -19,7 +19,7 @@ const useForm = (callback) => {
                         validator.isStrongPassword(event.target.value, {minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}) === false
                          ? "password must be 8 characters including, one upppercase, one lowercase, one special character(!@#$%&), and one number."
                           :null
-                        }
+                        
                 }));
                 break;
             case "verifyPassword":
