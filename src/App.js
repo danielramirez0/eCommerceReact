@@ -12,6 +12,7 @@ import Staging from "./Components/Staging/Staging";
 import Logoff from "./Components/Logoff/Logoff";
 import ShoppingCart from "./Components/ShoppingCart/ShoppingCart"
 import Account from "./Components/Account/Account"
+import ProductView from "./Components/ProductView/ProductView";
 
 function App() {
     const [baseURL, setBaseURL] = useState("https://localhost:44394/api/");
@@ -30,8 +31,9 @@ function App() {
                                 <Route path="/seller" element={<Seller />} />
                                 <Route path="/customer" element={<Customer />} />
                                 <Route path="/customer/shoppingcart" element={<ShoppingCart />} />
-                                <Route path="/customer/Account" element={<Account />} />
+                                <Route path="/customer/account" element={<Account />} />
                                 <Route path="/logoff" element={<Logoff />} />
+                                <Route path="/productview/:productId" element={<ProductView />} />
                             </Routes>
                         </div>
                     </header>
