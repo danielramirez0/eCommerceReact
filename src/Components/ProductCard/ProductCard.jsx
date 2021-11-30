@@ -5,8 +5,8 @@ const ProductCard = (props) => {
             <div className="card-header">{props.product.name}</div>
             <div className="card-body">
                 <img src="#" alt="#" />
-                <p>{props.product.description}</p>
-                <p>${props.product.price}</p>
+                <p>{props.product.Description}</p>
+                <p>{props.product.Price}</p>
             </div>
             <button className="btn btn-primary" onClick={() => props.addItemToShoppingCart(props.product)}>
                 Add to Cart

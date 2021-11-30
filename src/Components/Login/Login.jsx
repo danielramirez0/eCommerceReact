@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./login.css";
-import logo from "../../img/Elogo.png";
+import logo from "../../img/Elogo.svg";
 import useForm from "../useForm/useForm";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Components/useAuth/useAuth";
