@@ -4,9 +4,10 @@ import FlexNav from "../FlexNav/FlexNav";
 import logo from "../../img/LogoWithName.svg";
 import ProductDisplay from "../ProductDisplay/ProductDisplay";
 import { BaseURLContext } from "../../baseURL-context";
-import { defaultGetRequest } from "../../static/functions";
+import { defaultGetRequest, protectedEnpointGetRequest, protectedEnpointPostRequest } from "../../static/functions";
 import { Card } from "react-bootstrap";
 import useForm from "../useForm/useForm";
+import useAuth from "../useAuth/useAuth";
 
 const Customer = () => {
     const { values, handleChange, handleSubmit } = useForm(searchByName);
@@ -16,22 +17,66 @@ const Customer = () => {
     const [total, setTotal] = useState(0);
     const { baseURL } = useContext(BaseURLContext);
     const [filter, setFilter] = useState("all");
+    const auth = useAuth();
+
+    useEffect(() => {
+        getCategories();
+        getShoppingCart();
+        setDisplayProducts(filter);
+    }, []);
 
     useEffect(() => {
         setDisplayProducts(filter);
-        getCategories();
-        console.log(categories);
     }, [filter]);
+
+    useEffect(() => {
+        calcTotal();
+    }, [shoppingCart]);
+
+    useEffect(() => {
+        getShoppingCart();
+    }, [total]);
 
     function setDisplayProducts(filter) {
         if (filter === "all") {
             getAllProducts();
         } else if (filter === "name") {
             getProductsByName(values.searchName);
-        }else {
+        } else {
             getProductsByCategory(filter);
         }
     }
+
+    const calcTotal = () => {
+        let sum = 0;
+        if (shoppingCart.length > 0) {
+            shoppingCart.forEach((item) => {
+                sum += item.price;
+            });
+        }
+        setTotal(sum);
+    };
+
+    const getShoppingCart = async () => {
+        const response = await protectedEnpointGetRequest(`${baseURL}shoppingcart/`, auth.jwt);
+        if (response) {
+            setShoppingCart(response.data);
+        }
+    };
+
+    const addItemToShoppingCart = async (product) => {
+        let updatedCart = shoppingCart;
+        const response = await protectedEnpointPostRequest(
+            `${baseURL}shoppingcart?quantity=1`,
+            product,
+            auth.jwt
+        );
+        console.log(response);
+        if (response) {
+            updatedCart.push(response.data);
+            setShoppingCart(updatedCart);
+        }
+    };
 
     const getAllProducts = async () => {
         const response = await defaultGetRequest(`${baseURL}product/all/`);
@@ -64,21 +109,23 @@ const Customer = () => {
     }
 
     const getCategories = async () => {
-        const response = await defaultGetRequest(`${baseURL}category/all/`)
-        if(response) {
+        const response = await defaultGetRequest(`${baseURL}categories/all/`);
+        if (response) {
             setCategories(response.data);
         }
-    }
+    };
 
     return (
         <React.Fragment>
-            <div className="row top-nav">
+            <div className="row mt-0">
                 <div className="col-8"></div>
                 <div className="col-2">
                     <Link to="/customer/account">Account</Link>
                 </div>
                 <div className="col-2">
-                    My Cart -- Items: {shoppingCart.length} Total: ${total}
+                    <Link to="/customer/shoppingCart">
+                        My Cart -- Items: {shoppingCart.length} Total: ${total}
+                    </Link>
                 </div>
             </div>
             <div className="row">
@@ -111,7 +158,7 @@ const Customer = () => {
                 </div>
             </div>
 
-            <FlexNav data={categories}></FlexNav>
+            <FlexNav data={categories} setFilter={(category) => setFilter(category)}></FlexNav>
 
             <div className="">
                 <form onSubmit={handleSubmit} className="d-flex">
@@ -128,10 +175,7 @@ const Customer = () => {
                     </button>
                 </form>
             </div>
-            <div className="">
-                <ProductDisplay products={products} />
-            </div>
-            
+            <ProductDisplay products={products} addItemToShoppingCart={(product) => addItemToShoppingCart(product)}/>
         </React.Fragment>
     );
 };

@@ -2,10 +2,10 @@ import React from "react";
 
 const FlexNav = (props) => {
     return (
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div className="container-fluid">
                 <button
-                    class="navbar-toggler"
+                    className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarColor01"
@@ -13,20 +13,29 @@ const FlexNav = (props) => {
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
+                <div className="collapse navbar-collapse" id="navbarColor01">
+                    <div className="navbar-nav me-auto btn-group-horizontal">
+                        <button
+                            className="btn btn-outline-primary"
+                            onClick={() => props.setFilter("all")}
+                        >
+                            All
+                        </button>
                         {props.data.map((category) => (
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">
-                                    {category}
-                                    <span class="visually-hidden">(current)</span>
-                                </a>
+                            <li className="nav-item">
+                                <button
+                                    className="btn btn-outline-primary"
+                                    onClick={() => props.setFilter(category.name)}
+                                >
+                                    {category.name}
+                                    <span className="visually-hidden">(current)</span>
+                                </button>
                             </li>
                         ))}
-                    </ul>
+                    </div>
                 </div>
             </div>
         </nav>

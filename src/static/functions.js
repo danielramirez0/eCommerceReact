@@ -39,7 +39,20 @@ export async function protectedEnpointGetRequest(endpoint, token) {
     return result;
 }
 
-export async function defaultGetRequst(endpoint) {
+export async function protectedEnpointPostRequest(endpoint, body, token) {
+    const result = await axios
+        .post(endpoint, body, { headers: { Authorization: `Bearer ${token}`} })
+        .then((response) => {
+            return response;
+        })
+        .catch((error) => {
+            errorHandler(error);
+            return false;
+        });
+    return result;
+}
+
+export async function defaultGetRequest(endpoint) {
     const result = await axios
         .get(endpoint)
         .then((response) => {

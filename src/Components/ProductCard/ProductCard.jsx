@@ -8,7 +8,7 @@ const ProductCard = (props) => {
                 <p>{props.product.description}</p>
                 <p>${props.product.price}</p>
             </div>
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={() => props.addItemToShoppingCart(props.product)}>
                 Add to Cart
             </button>
         </div>

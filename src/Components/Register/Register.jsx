@@ -4,15 +4,15 @@ import { BaseURLContext } from "../../baseURL-context";
 import useForm from "../useForm/useForm";
 import { useNavigate } from "react-router";
 import { defaultPostRequest } from "../../static/functions";
+import { Spinner } from "react-bootstrap";
 
 const Register = () => {
     const { values, errors, handleChange, handleSubmit } = useForm(registerUser);
     const { baseURL } = useContext(BaseURLContext);
     const [formPage, setFormPage] = useState(1);
     const [applyShipping, setApplyShipping] = useState(true);
-    const[loading, setLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
 
     async function registerUser() {
         const addresses = await addressBuilder();
@@ -20,8 +20,8 @@ const Register = () => {
         const shippingAddressId = await postAddress(addresses[0]);
         const billingAddressId = await postAddress(addresses[1]);
 
-        const registrationData ={
-            firstname:values.firstName,
+        const registrationData = {
+            firstname: values.firstName,
             lastname: values.lastName,
             username: values.username,
             password: values.password,
@@ -29,53 +29,47 @@ const Register = () => {
             phonenumber: values.phoneNumber,
             shippingAddressID: shippingAddressId,
             billingAddressID: billingAddressId,
-            roletype: values.accountType
-        }
+            roletype: values.accountType,
+        };
 
-                setLoading(true);
-                const response = await defaultPostRequest(`${baseURL}authentication/`, registrationData);
-                if (response){
-                    navigate("/")
-                }
-            }
-
-    async function postAddress(address){
-        setLoading(true);
-        const response = await defaultPostRequest(`${baseURL}addresses/`, address);
-        if(response){
-            return (
-                response.data.id
-            );
+        setIsLoading(true);
+        const response = await defaultPostRequest(`${baseURL}authentication/`, registrationData);
+        if (response) {
+            navigate("/");
         }
     }
 
-    async function addressBuilder(){
-        const billingAddress={};
+    async function postAddress(address) {
+        setIsLoading(true);
+        const response = await defaultPostRequest(`${baseURL}addresses/`, address);
+        if (response) {
+            return response.data.id;
+        }
+    }
+
+    async function addressBuilder() {
+        const billingAddress = {};
         const shippingAddress = {
             name: values.shippingName,
             street: values.shippingStreet,
             city: values.shippingCity,
             zip: values.shippingZip,
-            type: "shipping"
+            type: "shipping",
+        };
+        if (applyShipping) {
+            billingAddress.name = values.shippingName;
+            billingAddress.street = values.shippingStreet;
+            billingAddress.city = values.shippingCity;
+            billingAddress.zip = values.shippingZip;
+            billingAddress.type = "billing";
+        } else {
+            billingAddress.name = values.billingName;
+            billingAddress.street = values.billingStreet;
+            billingAddress.city = values.billingCity;
+            billingAddress.zip = values.billingZip;
+            billingAddress.type = "billing";
         }
-        if(applyShipping)
-        {
-            billingAddress.name = values.shippingName
-            billingAddress.street = values.shippingStreet
-            billingAddress.city = values.shippingCity
-            billingAddress.zip = values.shippingZip
-            billingAddress.type = "billing"
-               
-        }
-        else
-        {
-            billingAddress.name = values.billingName
-            billingAddress.street = values.billingStreet
-            billingAddress.city = values.billingCity
-            billingAddress.zip = values.billingZip
-            billingAddress.type = "billing"
-        }
-        return [shippingAddress, billingAddress]
+        return [shippingAddress, billingAddress];
     }
 
     function renderUserForm() {
@@ -341,7 +335,7 @@ const Register = () => {
                                 name="billingSetup"
                                 id="billingSetup"
                                 value={applyShipping}
-                                checked={applyShipping?true:false}
+                                checked={applyShipping ? true : false}
                                 onChange={() => setApplyShipping(!applyShipping)}
                             />
                             <label htmlFor="billingSetup" className="form-check-label text-left">
@@ -349,9 +343,21 @@ const Register = () => {
                             </label>
                         </div>
                         {!applyShipping ? renderBillingAddress() : null}
-                        <button className="btn btn-primary" type="submit">
+                        <button
+                            className="btn btn-primary"
+                            type="submit"
+                            hidden={isLoading ? true : false}
+                        >
                             Register
                         </button>
+                        <Spinner
+                            className="m-auto"
+                            animation="border"
+                            role="status"
+                            hidden={isLoading ? false : true}
+                        >
+                            <span className="visually-hidden">Loading...</span>
+                        </Spinner>
                     </div>
                 </div>
             </fieldset>
