@@ -151,6 +151,7 @@ const Login = () => {
                     <small>Not registered?</small>
                     <Link to="/register"> Register</Link>
                 </div>
+                <img src={'../src/img/LogoWithMotto.png'} alt="didnotwork" />
             </div>
         </React.Fragment>
     );

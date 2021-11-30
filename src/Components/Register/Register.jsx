@@ -210,13 +210,13 @@ const Register = () => {
                     </div>
                     <button disabled={errors.password || 
                                       errors.verifyPassword || 
-                                      values.password === null || 
-                                      values.verifyPassword === null ||
-                                      values.username === null ||
-                                      values.email === null ||
-                                      values.firstName === null ||
-                                      values.lastName === null ||
-                                      values.phoneNumber === null
+                                      values.password == null || 
+                                      values.verifyPassword == null ||
+                                      values.username == null ||
+                                      values.email == null ||
+                                      values.firstName == null ||
+                                      values.lastName == null ||
+                                      values.phoneNumber == null
                                      } 
                             className="btn btn-primary mb-4" 
                             onClick={() => setFormPage(2)}>
