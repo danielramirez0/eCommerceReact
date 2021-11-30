@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 
 const ProductCard = (props) => {
     let productName = props.product.name.replace('"', "");
     let imgSrc = productName + ".jpg";
+    const navigate = useNavigate();
 
     return (
         <div className="col" style={{ maxWidth: "15rem"  }}>
@@ -14,6 +16,9 @@ const ProductCard = (props) => {
             </div>
             <button className="btn btn-primary" onClick={() => props.addItemToShoppingCart(props.product)}>
                 Add to Cart
+            </button>
+            <button className="btn btn-primary" onClick={() => navigate(`/productview/${props.product.id}`)}>
+                Details
             </button>
         </div>
     );
