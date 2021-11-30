@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { defaultPostRequest } from "../../static/functions";
 
 const Register = () => {
-    const { values, errors, handleChange, handleSubmit } = useForm(registerUser);
+    const { values, errors,  handleChange, handleSubmit } = useForm(registerUser);
     const { baseURL } = useContext(BaseURLContext);
     const [formPage, setFormPage] = useState(1);
     const [applyShipping, setApplyShipping] = useState(true);
