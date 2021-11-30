@@ -30,7 +30,7 @@ function App() {
                                 <Route path="/seller" element={<Seller />} />
                                 <Route path="/customer" element={<Customer />} />
                                 <Route path="/customer/shoppingcart" element={<ShoppingCart />} />
-                                <Route path="/customer/Account" element={<Account />} />
+                                <Route path="/customer/account" element={<Account />} />
                                 <Route path="/logoff" element={<Logoff />} />
                             </Routes>
                         </div>
