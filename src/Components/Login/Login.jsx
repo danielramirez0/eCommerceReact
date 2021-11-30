@@ -20,7 +20,11 @@ const Login = () => {
     // const from = location.state?.from?.pathname || "/staging";
 
     useEffect(() => {
-        checkCache();
+        if (auth.jwt) {
+            navigate("/staging");
+        } else {
+            checkCache();
+        }
     }, []);
 
     function checkCache() {
@@ -63,7 +67,7 @@ const Login = () => {
 
     return (
         <React.Fragment>
-            <ToastContainer className="p-3" position="bottom-center">
+            <ToastContainer className="p-3" position="top-center">
                 <Toast
                     className="toast"
                     onClose={() => setShowToast(false)}

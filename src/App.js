@@ -9,6 +9,8 @@ import Customer from "./Components/Customer/Customer";
 import { BaseURLContext } from "./baseURL-context";
 import AuthProvider from "./Components/AuthProvider/AuthProvider";
 import Staging from "./Components/Staging/Staging";
+import Logoff from "./Components/Logoff/Logoff";
+import ShoppingCart from "./Components/ShoppingCart/ShoppingCart"
 
 function App() {
     const [baseURL, setBaseURL] = useState("https://localhost:44394/api/");
@@ -23,9 +25,11 @@ function App() {
                             <Routes>
                                 <Route path="/" exact element={<Login />} />
                                 <Route path="/staging" element={<Staging />} />
-                                <Route path="/register" exact element={<Register />} />
-                                <Route path="/seller" exact element={<Seller />} />
-                                <Route path="/customer" exact element={<Customer />} />
+                                <Route path="/register" element={<Register />} />
+                                <Route path="/seller" element={<Seller />} />
+                                <Route path="/customer" element={<Customer />} />
+                                <Route path="/customer/shoppingcart" element={<ShoppingCart />} />
+                                <Route path="/logoff" element={<Logoff />} />
                             </Routes>
                         </div>
                     </header>
