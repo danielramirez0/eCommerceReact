@@ -16,7 +16,6 @@ const Register = () => {
 
     async function registerUser() {
         const addresses = await addressBuilder();
-
         const shippingAddressId = await postAddress(addresses[0]);
         const billingAddressId = await postAddress(addresses[1]);
 
@@ -81,6 +80,7 @@ const Register = () => {
     function renderUserForm() {
         return (
             <fieldset>
+                <p>All fields must be completed</p>
                 <div className="ms-4 me-4">
                     <div className="form-group mt-4 mb-4">
                         <div className="form-floating mb-3">
@@ -208,7 +208,18 @@ const Register = () => {
                             </label>
                         </div>
                     </div>
-                    <button className="btn btn-primary mb-4" onClick={() => setFormPage(2)}>
+                    <button disabled={errors.password || 
+                                      errors.verifyPassword || 
+                                      values.password === null || 
+                                      values.verifyPassword === null ||
+                                      values.username === null ||
+                                      values.email === null ||
+                                      values.firstName === null ||
+                                      values.lastName === null ||
+                                      values.phoneNumber === null
+                                     } 
+                            className="btn btn-primary mb-4" 
+                            onClick={() => setFormPage(2)}>
                         Next
                     </button>
                 </div>
@@ -349,6 +360,10 @@ const Register = () => {
                             </label>
                         </div>
                         {!applyShipping ? renderBillingAddress() : null}
+                        <button className="btn btn-primary"
+                                onClick={() => setFormPage(1)}>
+                            Back
+                        </button>
                         <button className="btn btn-primary" type="submit">
                             Register
                         </button>

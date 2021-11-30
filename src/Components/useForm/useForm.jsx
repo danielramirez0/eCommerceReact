@@ -4,7 +4,6 @@ import validator from "validator";
 const useForm = (callback) => {
     const [values, setValues] = useState({});
     const [errors, setErrors] = useState({});
-    const [errorMessage, setErrorMessage] = useState('')
 
     const handleChange = (event) => {
         event.persist();
@@ -18,8 +17,8 @@ const useForm = (callback) => {
                     // for this to work, npm install validator must be ran in the terminal first!!
                         validator.isStrongPassword(event.target.value, {minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1}) === false
                          ? "password must be 8 characters including, one upppercase, one lowercase, one special character(!@#$%&), and one number."
-                          :null
-                        
+                          : null  
+                         
                 }));
                 break;
             case "verifyPassword":
