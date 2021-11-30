@@ -24,8 +24,49 @@ const Account = (props) => {
         }
     }, []);
 
-    return auth.jwt ? (
+    return (
         <React.Fragment>
+            <div className="row mt-0">
+                <div className="col-7"></div>
+                <div className="col-2">
+                    <Link to="/customer/account">Account</Link>
+                </div>
+                <div className="col-2">
+                </div>
+                <div className="col-1">
+                    <Link to="/logoff">Logoff</Link>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-4 ">
+                    <Card style={{ width: "22rem", height: "10rem" }}>
+                        <Card.Img className="m-auto" src={logo} alt="Electronify Logo" />
+                    </Card>
+                </div>
+                <div className="col-4">
+                    <Card style={{ width: "22rem", height: "10rem" }}>
+                        <Card.Body className="m-auto">
+                            <Card.Title>Who we are</Card.Title>
+                            <Card.Text>
+                                We've got better things than Best Buy, Wal-Mart, K-Mart, Toys "R"
+                                Us, and all the other thriving brick and mortar stores
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
+                <div className="col-4">
+                    <Card style={{ width: "22rem", height: "10rem" }}>
+                        <Card.Body className="m-auto">
+                            <Card.Title>Refund Policy</Card.Title>
+                            <Card.Text className="m-auto">
+                                Under no circumstances do we accept refunds, sometimes you get what
+                                you get
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </div>
+            </div>
+            <FlexNav data={[]} callback={(value) => navigate(value)} callbackParam="/customer" buttonText="Continue shopping"></FlexNav>
             <h1>Account Details</h1>
             <table className="table table-hover" id="shoppingcart">
                 <thead>
@@ -38,7 +79,7 @@ const Account = (props) => {
                 <tbody>
                     <tr>
                         <th scope="row"> {"Username"} </th>
-                        <td>{accountData.username}</td>
+                        <td>{accountData ? accountData.username : "Loading..."}</td>
                         <td>
                             <button disabled className="btn btn-primary disabled">
                                 Edit
@@ -47,7 +88,7 @@ const Account = (props) => {
                     </tr>
                     <tr>
                         <th scope="row"> {"Email Address"} </th>
-                        <td>{accountData.email}</td>
+                        <td>{accountData ? accountData.email : "Loading..."}</td>
                         <td>
                             <button disabled className="btn btn-primary disabled">
                                 Edit
@@ -56,7 +97,7 @@ const Account = (props) => {
                     </tr>
                     <tr>
                         <th scope="row"> {"First Name"} </th>
-                        <td>{accountData.firstName}</td>
+                        <td>{accountData ? accountData.firstName : "Loading..."}</td>
                         <td>
                             <button disabled className="btn btn-primary disabled">
                                 Edit
@@ -65,23 +106,25 @@ const Account = (props) => {
                     </tr>
                     <tr>
                         <th scope="row"> {"Last Name"} </th>
-                        <td>{accountData.lastName}</td>
+                        <td>{accountData ? accountData.lastName : "Loading..."}</td>
                         <td>
-                            <button disabled className="btn btn-primary disabled">Edit</button>
+                            <button disabled className="btn btn-primary disabled">
+                                Edit
+                            </button>
                         </td>
                     </tr>
                     <tr>
                         <th scope="row"> {"Phone Number"} </th>
-                        <td>{accountData.phoneNumber}</td>
+                        <td>{accountData ? accountData.phoneNumber : "Loading..."}</td>
                         <td>
-                            <button disabled className="btn btn-primary disabled">Edit</button>
+                            <button disabled className="btn btn-primary disabled">
+                                Edit
+                            </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </React.Fragment>
-    ) : (
-        <h1>Not Authenticated</h1>
     );
 };
 export default Account;
