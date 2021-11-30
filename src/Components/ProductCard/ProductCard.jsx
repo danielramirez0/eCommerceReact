@@ -5,7 +5,7 @@ const ProductCard = (props) => {
             <div className="card-body">
                 <img src="#" alt="#" />
                 <p>{props.product.Description}</p>
-                <p>${props.product.Price}</p>
+                <p>{props.product.Price}</p>
             </div>
             <button className="btn btn-primary">
                 Add to Cart
