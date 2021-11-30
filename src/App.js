@@ -9,6 +9,7 @@ import Customer from "./Components/Customer/Customer";
 import { BaseURLContext } from "./baseURL-context";
 import AuthProvider from "./Components/AuthProvider/AuthProvider";
 import Staging from "./Components/Staging/Staging";
+import Logoff from "./Components/Logoff/Logoff";
 
 function App() {
     const [baseURL, setBaseURL] = useState("https://localhost:44394/api/");
@@ -26,6 +27,7 @@ function App() {
                                 <Route path="/register" exact element={<Register />} />
                                 <Route path="/seller" exact element={<Seller />} />
                                 <Route path="/customer" exact element={<Customer />} />
+                                <Route path="/logoff" exact element={<Logoff />} />
                             </Routes>
                         </div>
                     </header>

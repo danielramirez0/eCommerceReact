@@ -118,7 +118,7 @@ const Customer = () => {
     return (
         <React.Fragment>
             <div className="row mt-0">
-                <div className="col-8"></div>
+                <div className="col-7"></div>
                 <div className="col-2">
                     <Link to="/customer/account">Account</Link>
                 </div>
@@ -126,6 +126,9 @@ const Customer = () => {
                     <Link to="/customer/shoppingCart">
                         My Cart -- Items: {shoppingCart.length} Total: ${total}
                     </Link>
+                </div>
+                <div className="col-1">
+                    <Link to="/logoff">Logoff</Link>
                 </div>
             </div>
             <div className="row">

@@ -63,7 +63,7 @@ const Login = () => {
 
     return (
         <React.Fragment>
-            <ToastContainer className="p-3" position="bottom-center">
+            <ToastContainer className="p-3" position="top-center">
                 <Toast
                     className="toast"
                     onClose={() => setShowToast(false)}
