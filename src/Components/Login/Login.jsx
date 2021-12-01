@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./login.css";
 import logo from "../../img/Elogo.svg";
+import imageLogo from "../../img/LogoWithMotto.png"
 import useForm from "../useForm/useForm";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../Components/useAuth/useAuth";
@@ -156,7 +157,7 @@ const Login = () => {
                     <small>Not registered?</small>
                     <Link to="/register"> Register</Link>
                 </div>
-                <img src={'../src/img/LogoWithMotto.png'} alt="didnotwork" />
+                <img src={imageLogo} alt="Motto" />
             </div>
         </React.Fragment>
     );
