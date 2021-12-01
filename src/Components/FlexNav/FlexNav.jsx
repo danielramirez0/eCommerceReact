@@ -24,8 +24,8 @@ const FlexNav = (props) => {
                         >
                             {props.buttonText}
                         </button>
-                        {props.data.map((category) => (
-                            <li key={category} className="nav-item">
+                        {props.data.map((category, index) => (
+                            <li key={index} className="nav-item">
                                 <button
                                     className="btn btn-outline-primary"
                                     onClick={() => props.callback(category.name)}
