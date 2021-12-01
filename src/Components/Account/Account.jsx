@@ -19,11 +19,13 @@ const Account = (props) => {
     const auth = useAuth();
     const [orderHistory, setOrderHistory] = useState([]);
     const [activeOrder, setActiveOrder] = useState();
+    const [role, setRole] = useState();
 
     useEffect(() => {
         if (auth.jwt) {
             setAccountData(jwtDecode(auth.jwt));
             getOrderHistory();
+            getUserRole();
         } else {
             navigate("/");
         }
@@ -36,6 +38,13 @@ const Account = (props) => {
     useEffect(() => {
         renderOrderDetail();
     }, [activeOrder]);
+
+    async function getUserRole() {
+        const response = await protectedEnpointGetRequest(`${baseURL}userroles/`, auth.jwt);
+        if (response) {
+            setRole(response.data);
+        }
+    }
 
     async function getOrderHistory() {
         const response = await protectedEnpointGetRequest(`${baseURL}order/user`, auth.jwt);
@@ -106,7 +115,7 @@ const Account = (props) => {
                                     <td className="col-4">{order.total}</td>
                                     <td>
                                         <button
-                                        disabled
+                                            disabled
                                             className="btn btn-primary disabled"
                                             onClick={() => setActiveOrder(order.id)}
                                         >
@@ -165,8 +174,8 @@ const Account = (props) => {
             <FlexNav
                 data={[]}
                 callback={(value) => navigate(value)}
-                callbackParam="/customer"
-                buttonText="Continue shopping"
+                callbackParam={role === "Customer" ? "/customer" : "/seller"}
+                buttonText={role === "Customer" ? "Continue shopping" : "Return"}
             ></FlexNav>
             <h1>Account Details</h1>
             <table className="table table-hover" id="shoppingcart">
@@ -225,12 +234,14 @@ const Account = (props) => {
                     </tr>
                 </tbody>
             </table>
-            <div className="row">
-                <div className="col">
-                    <h3>Order History</h3>
-                    {renderOrderHistory()}
+            {role === "Customer" ? (
+                <div className="row">
+                    <div className="col">
+                        <h3>Order History</h3>
+                        {renderOrderHistory()}
+                    </div>
                 </div>
-            </div>
+            ) : null}
         </React.Fragment>
     );
 };
