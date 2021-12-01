@@ -33,13 +33,13 @@ const Checkout = (props) => {
         }
     }
 
-    async function submitOrder() {
-        const order = { total: params.total };
-        const response = await protectedEnpointPostRequest(`${baseURL}order/`, order, auth.jwt);
-        if (response) {
-            setOrder(response.data);
-        }
-    }
+    // async function submitOrder() {
+    //     const order = { total: params.total };
+    //     const response = await protectedEnpointPostRequest(`${baseURL}order/`, order, auth.jwt);
+    //     if (response) {
+    //         setOrder(response.data);
+    //     }
+    // }
 
     return (
         <React.Fragment>

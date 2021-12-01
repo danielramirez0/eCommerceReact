@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { BaseURLContext } from "../../baseURL-context";
-import { defaultGetRequest } from "../../static/functions";
+import { defaultGetRequest, defaultPostRequest } from "../../static/functions";
 import { useParams } from "react-router";
 import useForm from "../useForm/useForm";
 const ProductView = (props) => {
-    const { values, errors, handleChange, handleSubmit } = useForm(renderForm);
+    const { values, errors, handleChange, handleSubmit } = useForm(postReview);
     const [formPage, setFormPage] = useState(1);
     const [reviews, setReviews] = useState([]);
     const [product, setProduct] = useState(null);
@@ -46,6 +46,19 @@ const ProductView = (props) => {
         }
     };
 
+    async function postReview() {
+       
+        const response = await defaultPostRequest(`${baseURL}product/reviews/${productId}`, submitReviewData);
+        if (response) {
+            setFormPage(1);
+        }
+    }
+
+    const submitReviewData ={
+        review: values.review,
+        stars: Number(values.btnradio)
+    };
+
     function renderForm() {
         return (
             <form onSubmit={handleSubmit}>
@@ -65,13 +78,13 @@ const ProductView = (props) => {
                                 <label htmlFor="review">review</label>
                                 <p>Rating</p>
                                 <div
-                                    class="btn-group"
+                                    className="btn-group"
                                     role="group"
                                     aria-label="Basic radio toggle button group"
                                 >
                                     <input
                                         type="radio"
-                                        class="btn-check"
+                                        className="btn-check"
                                         name="btnradio"
                                         id="btnradio1"
                                         autocomplete="off"
@@ -79,12 +92,12 @@ const ProductView = (props) => {
                                         onChange={handleChange}
                                         checked={values.btnradio === "1" ? true : false}
                                     />
-                                    <label class="btn btn-outline-primary" htmlFor="btnradio1">
+                                    <label className="btn btn-outline-primary" htmlFor="btnradio1">
                                         1 Star
                                     </label>
                                     <input
                                         type="radio"
-                                        class="btn-check"
+                                        className="btn-check"
                                         name="btnradio"
                                         id="btnradio2"
                                         autocomplete="off"
@@ -92,12 +105,12 @@ const ProductView = (props) => {
                                         onChange={handleChange}
                                         checked={values.btnradio === "2" ? true : false}
                                     />
-                                    <label class="btn btn-outline-primary" htmlFor="btnradio2">
+                                    <label className="btn btn-outline-primary" htmlFor="btnradio2">
                                         2 Stars
                                     </label>
                                     <input
                                         type="radio"
-                                        class="btn-check"
+                                        className="btn-check"
                                         name="btnradio"
                                         id="btnradio3"
                                         autocomplete="off"
@@ -105,12 +118,12 @@ const ProductView = (props) => {
                                         onChange={handleChange}
                                         checked={values.btnradio === "3" ? true : false}
                                     />
-                                    <label class="btn btn-outline-primary" htmlFor="btnradio3">
+                                    <label className="btn btn-outline-primary" htmlFor="btnradio3">
                                         3 Stars
                                     </label>
                                     <input
                                         type="radio"
-                                        class="btn-check"
+                                        className="btn-check"
                                         name="btnradio"
                                         id="btnradio4"
                                         autocomplete="off"
@@ -118,12 +131,12 @@ const ProductView = (props) => {
                                         onChange={handleChange}
                                         checked={values.btnradio === "4" ? true : false}
                                     />
-                                    <label class="btn btn-outline-primary" htmlFor="btnradio4">
+                                    <label className="btn btn-outline-primary" htmlFor="btnradio4">
                                         4 Stars
                                     </label>
                                     <input
                                         type="radio"
-                                        class="btn-check"
+                                        className="btn-check"
                                         name="btnradio"
                                         id="btnradio5"
                                         autocomplete="off"
@@ -131,10 +144,12 @@ const ProductView = (props) => {
                                         onChange={handleChange}
                                         checked={values.btnradio === "5" ? true : false}
                                     />
-                                    <label class="btn btn-outline-primary" htmlFor="btnradio5">
+                                    <label className="btn btn-outline-primary" htmlFor="btnradio5">
                                         5 Stars
                                     </label>
                                 </div>
+                                <button className="btn btn-primary mb-4" onClick={()=> setFormPage(1)}>back</button>
+                                <button className="btn btn-primary mb-4" type="submit">submit</button>
                             </div>
                         </div>
                     </div>
