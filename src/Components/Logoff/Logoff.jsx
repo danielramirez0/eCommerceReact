@@ -11,8 +11,8 @@ const Logoff = () => {
     }, []);
 
     function logout() {
-        if (localStorage.getItem("ecommJWT")) {
-            localStorage.removeItem("ecommJWT");
+        if (localStorage.getItem("ecomJWT")) {
+            localStorage.removeItem("ecomJWT");
         }
         auth.signout(() => {
             navigate("/");

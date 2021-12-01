@@ -4,7 +4,7 @@ const ProductDisplay = (props) => {
     return (
         <div className="row row-cols-6">
             {props.products.map((product) => {
-                return <ProductCard product={product} addItemToShoppingCart={props.addItemToShoppingCart} />;
+                return <ProductCard key={product.id} product={product} addItemToShoppingCart={props.addItemToShoppingCart} />;
             })}
         </div>
     );

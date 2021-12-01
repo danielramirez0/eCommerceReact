@@ -7,7 +7,7 @@ import { defaultPostRequest } from "../../static/functions";
 import { Spinner } from "react-bootstrap";
 
 const Register = () => {
-    const { values, errors,  handleChange, handleSubmit } = useForm(registerUser);
+    const { values, errors, handleChange, handleSubmit } = useForm(registerUser);
     const { baseURL } = useContext(BaseURLContext);
     const [formPage, setFormPage] = useState(1);
     const [applyShipping, setApplyShipping] = useState(true);
@@ -202,18 +202,21 @@ const Register = () => {
                             </label>
                         </div>
                     </div>
-                    <button disabled={errors.password || 
-                                      errors.verifyPassword || 
-                                      values.password === null || 
-                                      values.verifyPassword === null ||
-                                      values.username === null ||
-                                      values.email === null ||
-                                      values.firstName === null ||
-                                      values.lastName === null ||
-                                      values.phoneNumber === null
-                                     } 
-                            className="btn btn-primary mb-4" 
-                            onClick={() => setFormPage(2)}>
+                    <button
+                        disabled={
+                            errors.password ||
+                            errors.verifyPassword ||
+                            values.password == null ||
+                            values.verifyPassword == null ||
+                            values.username == null ||
+                            values.email == null ||
+                            values.firstName == null ||
+                            values.lastName == null ||
+                            values.phoneNumber == null
+                        }
+                        className="btn btn-primary mb-4"
+                        onClick={() => setFormPage(2)}
+                    >
                         Next
                     </button>
                 </div>
@@ -354,8 +357,7 @@ const Register = () => {
                             </label>
                         </div>
                         {!applyShipping ? renderBillingAddress() : null}
-                        <button className="btn btn-primary"
-                                onClick={() => setFormPage(1)}>
+                        <button className="btn btn-primary" onClick={() => setFormPage(1)}>
                             Back
                         </button>
                         <button className="btn btn-primary" type="submit">
