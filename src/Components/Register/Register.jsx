@@ -210,7 +210,8 @@ const Register = () => {
                                       values.email == null ||
                                       values.firstName == null ||
                                       values.lastName == null ||
-                                      values.phoneNumber == null
+                                      values.phoneNumber == null ||
+                                      values.accountType == null
                                      } 
                             className="btn btn-primary mb-4" 
                             onClick={() => setFormPage(2)}>
